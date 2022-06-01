@@ -1,0 +1,44 @@
+{% extends 'layout/index.html' %}
+{% block title %} ERP - Eliminar producto {% endblock %}
+{% block content %}
+<section>
+    <div class="container  bg-light shadow rounded">
+        <br> <br>
+        <form action="" method="POST" class="horizontal-form">
+            {% csrf_token %}
+            <div class="row">
+               <div class="col-md col-lg col-sm ">
+                    <h4 class="text-center text-danger" ><b>¿Realmente desea eliminar el producto?</b></h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md col-lg col-sm ">
+                    <h4 class="text-left"><i class="fas fa-qrcode"></i> <b>Referencia:</b> {{producto.referencia}}</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md col-lg col-sm ">
+                    <h4 class="text-left"><i class="fas fa-pen-square"></i> <b>Descripcion:</b> {{producto.descripcion}} {{producto.detalle_producto}}</h4>
+                </div>
+            </div> 
+              <div class="row">
+                <div class="col-md col-lg col-sm ">  
+                     <h4 class="text-left"><i class="fas fa-venus-mars"></i> <b>Motivo:</b> {{producto.id_motivo}}</h4>
+                </div>
+            </div> 
+            <div class="row">
+                <div class="col-md col-lg col-sm ">
+                    <h4 class="text-left"><i class="fas fa-expand-arrows-alt"></i>  <b>Talla:</b> {{producto.talla}} </h4>
+                </div>
+            </div> 
+                <div class="col-md-12">
+                    <div class="card-footer bg-transparent text-center">
+                        <button type="submit" class="btn btn-danger text-light btn-fill btn-wd"><i class="fas fa-paper-plane"></i> Eliminar</button>
+                        <a type="button" href="{% url 'producto:producto'  %}" class="btn btn-success text-light btn-fill btn-wd"><i class="fas fa-window-close"></i> Cancelar</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+{% endblock %}

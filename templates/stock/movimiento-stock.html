@@ -1,0 +1,102 @@
+{% extends 'layout/index.html' %}
+{% block title %} ERP - Movimiento de stock {% endblock %}
+{% block content %}
+<section>
+    <div class="container  bg-light shadow rounded">
+         <div class="row">
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                  <br>
+                    <h6><i class="fas fa-random"></i> Movimiento de stock producto:  </h5>
+                    <hr class="bg-pollo">
+                    <br>
+               <form action="" method="POST" class="horizontal-form">
+                {% csrf_token %}
+                <div class="row mb-3">
+                    <div class="col-md col-xs col-lg">
+                        <div class="input-group mb-3">        
+                            <label for="{{ form.id_producto.label }}" class="col-md-2 col-form-label"> <i class="fas fa-boxes"></i> {{ form.id_producto.label }}</label>
+                            <div class="col-md-10">
+                                <input id="id_producto" value="{{id_producto}}" placeholder="Referencia de producto" name="id_producto" class="form-control border border-2 border-success" type="number">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md col-xs col-lg">
+                        <div class="input-group mb-3">        
+                            <label for="{{ form.cantidad.label }}" class="col-md-4 col-form-label"> <i class="fas fa-sort-amount-up-alt"></i> {{ form.cantidad.label }}</label>
+                            <div class="col-md-8">
+                                {{ form.cantidad }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md col-xs col-lg">
+                        <div class="input-group mb-3">                           
+                            <label for="{{ form.precio_unitario.label }}" class="col-md-4 col-form-label"> <i class="fas fa-sort-numeric-up"></i> {{ form.precio_unitario.label }}</label>
+                            <div class="col-md-8">
+                                {{ form.precio_unitario }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-3">               
+                    <div class="col-md col-xs col-lg">
+                        <div class="input-group mb-3">        
+                            <label for="{{ form.valor.label }}" class="col-md-4 col-form-label"> <i class="fas fa-dollar-sign"></i>  {{ form.valor.label }}</label>
+                            <div class="col-md-8">
+                                {{ form.valor }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md col-xs col-lg">
+                        <div class="input-group mb-3">                           
+                            <label for="{{ form.valor_venta.label }}" class="col-md-4 col-form-label"> <i class="fas fa-dollar-sign"></i> {{ form.valor_venta.label }}</label>
+                            <div class="col-md-8">
+                                {{ form.valor_venta }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md col-xs col-lg">
+                        <div class="input-group mb-3">        
+                            <label for="{{ form.descuento.label }}" class="col-md-4 col-form-label"> <i class="fas fa-percentage"></i>  {{ form.descuento.label }}</label>
+                            <div class="col-md-8">
+                                {{ form.descuento }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md col-xs col-lg">
+                        <div class="input-group mb-3">                           
+                            <label for="{{ form.valor_descuento.label }}" class="col-md-4 col-form-label"> <i class="fas fa-dollar-sign"></i> {{ form.valor_descuento.label }}</label>
+                            <div class="col-md-8">
+                                {{ form.valor_descuento }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-6">
+                    <div class="col-md col-xs col-lg">
+                        <div class="input-group">        
+                            <label for="{{ form.motivo_traslado.label }}" class="col-md-4 col-form-label"> <i class="fas fa-pen-square"></i>  {{ form.motivo_traslado.label }}</label>
+                            <div class="col-md-12">
+                              {{ form.motivo_traslado }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card-footer bg-transparent text-right">
+                            <button type="submit" class="btn bg-pollo text-light btn-fill btn-wd"> <i class="fas fa-paper-plane"></i> Guardar</button>
+                            <a type="button" href="{% url 'producto:producto'  %}" class="btn btn-danger text-light btn-fill btn-wd"><i class="fas fa-window-close"></i> Cancelar</a>
+                        </div>
+                    </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+  {% endblock %}

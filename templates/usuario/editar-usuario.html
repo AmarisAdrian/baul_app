@@ -1,0 +1,82 @@
+{% extends 'layout/index.html' %}
+{% block title %} ERP - Editar usuario {% endblock %}
+{% block content %}
+<section>
+    <div class="container  bg-light shadow rounded">
+        <div class="row" readonly>
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+               <br> <br>
+            <h5><i class="fa fa-address-card"></i> Datos de usuario</h5>
+            <hr class="bg-pollo">
+            <br>
+            <form action="" method="POST" class="horizontal-form" readonly>
+                {% csrf_token %}
+                <div class="row mb-3">
+                    <div class="col-md col-xs col-lg">
+                        <div class="input-group mb-3">
+                          <label for="{{ form.username.label }}" class="col-md-4 col-form-label"> <i class="fas fa-user"></i> {{ form.username.label }}</label>
+                            <div class="col-md-8">
+                                {{ form.username }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md col-xs col-lg">
+                        <div class="input-group mb-3">
+                            <label for="{{ form.email.label }}" class="col-md-4 col-form-label"> <i class="fas fa-at"></i> {{ form.email.label }}</label>
+                            <div class="col-md-8">
+                                {{ form.email }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md col-xs col-lg">
+                        <div class="input-group mb-3">                   
+                            <label for="{{ form.first_name.label }}" class="col-md-4 col-form-label"><i class="far fa-address-card"></i> {{ form.first_name.label }}</label>
+                            <div class="col-md-8">
+                                {{ form.first_name }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md col-xs col-lg">
+                        <div class="input-group mb-3">
+                             <label for="{{ form.last_name.label }}" class="col-md-4 col-form-label"><i class="fas fa-id-card-alt"></i> {{ form.last_name.label }}</label>  
+                            <div class="col-md-8">
+                                {{ form.last_name }}
+                            </div>
+                        </div>
+                    </div>
+                </div>             
+                <div class="row mb-3">
+                      <div class="col-md col-xs col-lg">
+                        <div class="input-group mb-3">
+                             <label for="{{ form.is_superuser.label }}" class="col-md-6 col-form-label"><i class="fas fa-brain"></i> {{ form.is_superuser.label }}</label>  
+                            <div class="col-md-5">
+                                {{ form.is_superuser }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md col-xs col-lg">
+                        <div class="input-group mb-3">
+                            <label for="{{ form.is_staff.label }}" class="col-md-4 col-form-label"><i class="fas fa-users-cog"></i> {{ form.is_staff.label }}</label>
+                            <div class="col-md-4">
+                                {{ form.is_staff }}                            
+                            </div>
+                        </div>
+                    </div>   
+                    <div class="col-md col-xs col-lg">
+                        <div class="input-group mb-3">
+                            <label for="{{ form.is_active.label }}" class="col-md-4 col-form-label"><i class="fas fa-user-check"></i> {{ form.is_active.label }}</label>
+                            <div class="col-md-4">
+                                {{ form.is_active }}                            
+                            </div>
+                        </div>
+                    </div>   
+                </div>              
+            </form>
+        </div>
+    </div>
+     </div>
+</section>
+
+{% endblock %}

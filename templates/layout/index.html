@@ -1,0 +1,341 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>{% block title %}ERP - El baul de pollito {% endblock %} </title>
+  {% block extrastatic %}
+  <!-- Bootstrap Core CSS -->
+  <link rel="apple-touch-icon" sizes="57x57" href="{% static 'img/favicon/apple-icon-57x57.png' %} ">
+  <link rel="apple-touch-icon" sizes="60x60" href="{% static 'img/favicon/apple-icon-60x60.png' %} ">
+  <link rel="apple-touch-icon" sizes="72x72" href="{% static 'img/favicon/apple-icon-72x72.png' %} ">
+  <link rel="apple-touch-icon" sizes="76x76" href="{% static 'img/favicon/apple-icon-76x76.png' %} ">
+  <link rel="apple-touch-icon" sizes="114x114" href="{% static 'img/favicon/apple-icon-114x114.png' %} ">
+  <link rel="apple-touch-icon" sizes="120x120" href="{% static 'img/favicon/apple-icon-120x120.png' %} ">
+  <link rel="apple-touch-icon" sizes="144x144" href="{% static 'img/favicon/apple-icon-144x144.png' %} ">
+  <link rel="apple-touch-icon" sizes="152x152" href="{% static 'img/favicon/apple-icon-152x152.png' %} ">
+  <link rel="apple-touch-icon" sizes="180x180" href="{% static 'img/favicon/apple-icon-180x180.png' %} ">
+  <link rel="icon" type="image/png" sizes="192x192" href="{% static '/android-icon-192x192.png' %} ">
+  <link rel="icon" type="image/png" sizes="32x32" href="{% static 'img/favicon/favicon-32x32.png' %} ">
+  <link rel="icon" type="image/png" sizes="96x96" href="{% static 'img/favicon/favicon-96x96.png' %} ">
+  <link rel="icon" type="image/png" sizes="16x16" href="{% static 'img/favicon/favicon-16x16.png' %} ">
+  <link rel="manifest" href="{% static 'img/favicon/manifest.json' %}">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="msapplication-TileImage" content="{% static 'img/favicon/ms-icon-144x144.png' %}">
+  <meta name="theme-color" content="#ffffff">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" type="text/css"
+    href="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.10.20/b-1.6.1/b-html5-1.6.1/b-print-1.6.1/datatables.min.css" />
+  <script src="https://kit.fontawesome.com/42be07190b.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+  <link href="{% static 'css/style.css' %} " rel="stylesheet">
+   <link href="{% static 'css/signin.css' %} " rel="stylesheet">
+  {% endblock %}
+</head>
+
+<body class="bg-main">
+  <div id="container-fluid">
+    {% block menu %}
+    <nav class="navbar  navbar-light navbar-expand-lg fixed-top bg-pollo shadow navbar-self-top">
+      <div class="container">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="btn btn-transparent text-light " data-bs-toggle="offcanvas" href="#menu-lateral" role="button"
+                  aria-controls="menu-lateral">
+               <i class="fas fa-bars"></i>
+             </a>
+            </li>
+          </ul>
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link active  text-light" aria-current="page" href="{% url 'index:index' %}"><b><i
+                    class="fas fa-home"></i> Home</b></a>
+            </li>
+          </ul>
+          <ul class="navbar-nav dropdown">
+            <li class="nav-item" id="menu-producto">
+              <a class="nav-link active  text-light dropdown-toggle" aria-current="page" href="#"><b><i
+                    class="fas fa-boxes"></i> Productos</b></a>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <div data-bs-toggle="modal">
+                  <li> <span> <a class="dropdown-item" href="{% url 'producto:producto' %}"><i class="fas fa-boxes"></i> Productos</a></span></li>
+                </div>
+                <div data-bs-toggle="modal">
+                  <li> <span> <a class="dropdown-item" href="{% url 'producto:catalogo' %}"><i class="far fa-images"></i> Catalogo</a></span></li>
+                </div>
+              </ul>     
+            </li>
+          </ul>
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link active  text-light" aria-current="page" href="{% url 'stock:stock' %}"><b><i
+                    class="fas fa-layer-group"></i> Stock</b></a>
+            </li>
+          </ul>
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link active  text-light" aria-current="page"
+                href="{% url 'facturacion:facturacion' %}"><b><i class="fas fa-file-invoice-dollar"></i>
+                  facturacion</b></a>
+            </li>
+          </ul>
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link active  text-light" aria-current="page"
+                href="{% url 'cotizacion:cotizacion' %}"><b><i class="fas fa-file-invoice-dollar"></i>
+                  cotizacion</b></a>
+            </li>
+          </ul>
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link active  text-light" aria-current="page" href="{% url 'cliente:cliente' %}"><b><i
+                    class="fas fa-user"></i> cliente</b></a>
+            </li>
+          </ul>
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link active  text-light" aria-current="page" href="{% url 'stock:inventario' %}"><b><i
+                    class="fas fa-dolly-flatbed"></i> Inventario</b></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    {% endblock %}
+
+    <div class="main">
+      <!--MENU LATERAL-->
+      <div class="offcanvas offcanvas-start" tabindex="-1" id="menu-lateral"
+        aria-labelledby="offcanvasExampleLabel">
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title" id="offcanvasExampleLabel">Bienvenido {{ user.first_name }} {{ user.last_name }}</h5>
+          <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body bg-pollo">
+         <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link active  text-light" aria-current="page" href="{% url 'usuario:mi-perfil' user.id %}"><b><i class="far fa-id-card"></i> Mi perfil</b></a>
+            </li>
+          </ul>
+            <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link active  text-light" aria-current="page" href="{% url 'logout' %}"><b><i class="fas fa-sign-out-alt"></i> Cerrar sesion</b></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <!--FIN LATERAL-->
+      {% block content %}
+      {% load humanize %}
+      <div class="container ">
+        {% block title_dash %} <h3> Dashboard </h3> {% endblock %}
+        <div class="row">
+          <div class="col-md-6 col-lg-3 col-xs-12">
+            <div class="card shadow">
+              <div class="card-header bg-primary text-light ">
+                <div class="row align-items-center">
+                  <div class="col text-start">
+                    <i class="fas fa-baby fa-6x"></i>
+                  </div>
+                  <div class="col text-end">
+                    <div><b>{{ producto_count }} Total Productos</b></div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer">
+                <a href="{% url 'producto:producto' %}" class="text-decoration-none">Ver detalles <i
+                    class="fas fa-arrow-circle-right"></i></a>
+
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-3 col-xs-12">
+            <div class="card shadow">
+              <div class="card-header bg-success text-light">
+                <div class="row align-items-center">
+                  <div class="col text-start">
+                    <i class="fas fa-shopping-cart fa-6x"></i>
+                  </div>
+                  <div class="col text-end">
+                    <div><b>0 nuevos pedidos</b></div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer">
+                <a href="#" class="text-decoration-none">Ver detalles <i class="fas fa-arrow-circle-right"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-3 col-xs-12">
+            <div class="card shadow">
+              <div class="card-header bg-warning text-light">
+                <div class="row align-items-center">
+                  <div class="col text-start">
+                    <i class="fas fa-cash-register fa-6x"></i>
+                  </div>
+                  <div class="col text-end">
+                    <div><b> $ {{ Factura_total|intcomma }} Total </b></div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer">
+                <a href="#" class="text-decoration-none">Ver detalles <i class="fas fa-arrow-circle-right"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-3 col-xs-12">
+            <div class="card shadow">
+              <div class="card-header bg-danger text-light">
+                <div class="row align-items-center">
+                  <div class="col text-start">
+                    <i class="fa fa-comments fa-6x"></i>
+                  </div>
+                  <div class="col text-end">
+                    <div><b> {{ Factura_count }} facturas en total</b></div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-footer">
+                <a href="{% url 'facturacion:facturacion' %}" class="text-decoration-none">Ver detalles <i
+                    class="fas fa-arrow-circle-right"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br> <br>
+        <!---MENU DE DATOS-->
+        <div class="row">
+          <div class="col-md-12 col-lg-12 col-xs-12">
+            <div class="card">
+              <div class="card-header">
+                <i class="fas fa-list-ol"></i> Ventas anuales
+              </div>
+              <div class="card-body">
+                {% csrf_token %}
+                <canvas style="position: relative; height:90vh; width:100vw " id="chart_venta_anual"
+                  data-url-venta="{% url 'index:venta-anual' %}">
+                </canvas>
+              </div>
+            </div>
+          </div>
+          <div>
+          </div>
+        </div>
+        <br> <br>
+        <!---PRODUCTOS MAS VENDIDOS DONUTS -->
+        <div class="row">
+          <div class="col-md-12 col-lg-12 col-xs-12">
+            <div class="card">
+              <div class="card-header">
+                <i class="fas fa-list-ol"></i> Productos mas vendidos
+              </div>
+              <div class="card-body">
+                <canvas style="position: relative; height:70vh; width:100vw " id="chart_venta_producto"
+                  data-url-venta="{% url 'index:venta-producto' %}">
+                </canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br> <br>
+        <!---MENU DE RANKING-->
+        <div class="row">
+          <div class="col-md-6 col-lg-6 col-xs-12">
+            <div class="card">
+              <div class="card-header">
+                <i class="fas fa-list-ol"></i> Ranking de compradores
+              </div>
+              {% if Ranking %}
+              <div class="card-body">
+                <table id="tabla_ranking" class="table-bordered table table-hover table-sm">
+                  <thead class="text-dark">
+                    <tr>
+                      <th>#</th>
+                      <th>Nombre</th>
+                      <th>Apellido</th>
+                      <th>Total</th>
+                      <th>cantidad</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% load humanize %}
+                    {% for i in Ranking %}
+                    <tr>
+                      <td>{{ i.0 }}</td>
+                      <td>{{ i.1 }}</td>
+                      <td>{{ i.2 }}</td>
+                      <td>$ {{ i.3|intcomma }}</td>
+                      <td>{{ i.4 |intcomma}}</td>
+                    </tr>
+                    {% endfor%}
+                  </tbody>
+                </table>
+              </div>
+              {% else %}
+              <div class="alert alert-danger">
+                <span>
+                  <b>No hay factura registradas</b>
+                </span>
+              </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+
+        <!--MODAL NOTIFICACION--->
+        {% block modal_notificacion %}
+        <div id="modal_notificacion" class="modal" tabindex="-1" role="dialog">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header bg-danger">
+                <h5 class="modal-title text-light"><i class="fas fa-eye"></i> Notificacion</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endblock %}
+        <br>
+        {% endblock %}
+      </div>
+    </div>
+  </div>
+  </div>
+  {% block js %}
+
+  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+  <script type="text/javascript"
+    src="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.10.20/b-1.6.1/b-html5-1.6.1/b-print-1.6.1/datatables.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.3.2/chart.min.js"></script>
+  <script src="{% static 'js/function.js'  %}"></script>
+  <script src="{% static 'js/datatable.js'  %}"></script>
+  {% endblock %}
+</body>
+
+</html>

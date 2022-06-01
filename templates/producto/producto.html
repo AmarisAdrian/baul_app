@@ -1,0 +1,141 @@
+{% extends 'layout/index.html' %}
+{% block title %} ERP - Productos {% endblock %}
+{% block title_dash %} Productos {% endblock %}
+{% block content %}
+<section>
+    <div class="container-xl bg-light shadow rounded">
+        <div class="row">
+            {% load sweetify %} {% sweetify %}
+            <div class="col-xl-12 col-lg-12">
+                <br>
+                      <div class="dropdown">
+                        <i class="fa fa-list"></i> Catalogo de productos
+                        <a class="btn btn-sm bg-pollo text-light" a href="{% url 'producto:crear-producto' %}">
+                            <i class="fa fa-plus" aria-hidden="true" title="Registrar producto" 
+                            data-toggle="tooltip" data-placement="top" ></i> Registrar </a>
+                        <button class="btn btn-sm btn-pollo-secondary dropdown-toggle text-light" type="button"
+                            id="MenuHerramienta" data-bs-toggle="dropdown"  aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-download"> Exportar</i>
+                        </button>
+                        <div class="dropdown-menu" class="Menu_herramienta_producto" aria-labelledby="MenuHerramienta"
+                            id="Menu_herramienta_producto">
+                        </div>
+                        <a href="{% url 'producto:importar-producto' %}" data-url="{% url 'producto:importar-producto' %}"
+                            class="btn btn-sm btn-success btn_importar_producto text-light"
+                            data-target="#modal_importar_producto" id="btn_importar_producto"
+                             title="Importar producto"  data-toggle="tooltip" data-placement="top">
+                            <i class="fa fa-upload" aria-hidden="true"></i> Importar</a>
+                  </div>
+                <hr>
+                <div class="table-responsive fs-6">
+                    {% if producto %}
+                    <!--Aqui va la tabla-->
+                    <table id="tabla_producto" class="table-bordered table table-hover table-sm table-striped">
+                        <thead class="text-dark">
+                            <tr>
+                                <th>Stock</th>
+                                <th style="width:100px">Codigo</th>
+                                <th style="width:20px">Referencia</th>
+                                <th style="width:500px">Descripcion</th>
+                                <th style="width:150px">Talla</th>
+                                <th style="width:100px">Venta</th>
+                                <th style="width:80px">Descuento</th>
+                                <th>Cantidad</th>
+                                <th style="width:50px">Motivo</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% load humanize %}
+                            {% for producto in producto %}
+                            <tr>
+                            {% if producto.cantidad > 5 %}             
+                                <td  style="width:50px"><a href="{% url 'stock:movimiento-stock' producto.id %}"  data-ref="{{ producto.referencia }}" data-url="{% url 'producto:editar-producto' producto.id %}" data-target="#modal_mover_stock" data-id="{{  producto.id  }}" class="btn_mover_stock"><span class="badge rounded-pill bg-success">Stock cargado</span></a></td>
+                            {% elif producto.cantidad < 5 and producto.cantidad >= 1 %}
+                                <td  style="width:50px"><a href="{% url 'stock:movimiento-stock' producto.id %}"  data-ref="{{ producto.referencia }}" data-url="{% url 'stock:movimiento-stock' producto.id %}"data-target="#modal_mover_stock" data-id="{{  producto.id  }}" class="btn_mover_stock"><span class="badge rounded-pill bg-warning">Agotandose</span></a></td>
+                            {% elif producto.cantidad < 1 %}
+                                <td  style="width:50px"><a href="{% url 'stock:movimiento-stock' producto.id %}"  data-ref="{{ producto.referencia }}" data-url="{% url 'stock:movimiento-stock' producto.id %}"data-target="#modal_mover_stock" data-id="{{  producto.id  }}" class="btn_mover_stock"><span class="badge rounded-pill bg-danger">Agotado</span></a></td>
+                            {% endif %}
+                                <td>{{ producto.codigo }}</td>
+                                <td>{{ producto.referencia }}</td>
+                                <td>{{ producto.descripcion }} {{ producto.detalle_producto }}</td>
+                                <td>{{ producto.talla }}</td>
+                                <td>{{ producto.valor_venta|intcomma }}</td>
+                                <td>{{ producto.valor_descuento|intcomma }}</td>
+                                <td  style="width:10px">{{ producto.cantidad }}</td>
+                                <td>{{ producto.id_motivo }}</td>
+                                <td  style="width:90px">
+                                    <a href="{% url 'producto:editar-producto' producto.id %}"
+                                        class="btn btn-primary btn-circle btn-sm text-light" title="Editar"
+                                        data-toggle="tooltip" data-placement="top" data-method="DELETE"><i
+                                            class="fa fa-pencil"></i>  </a>
+                                    <a  href="{% url 'producto:eliminar-producto' producto.id %}"
+                                        class="btn_eliminar_producto btn btn-danger btn-circle btn-sm"
+                                        title="Eliminar producto"
+                                        data-id="{% url 'producto:eliminar-producto' producto.id %}"
+                                        data-toggle="tooltip" data-placement="top" data-method="DELETE"><i
+                                            class="fa fa-trash"></i>  </a>
+                                     <a  href="#" data-bs-toggle="modal" data-bs-target="#modal_imagen_producto" id="btn_agregar_imagen"
+                                        class="btn_agregar_imagen btn btn-info btn-circle btn-sm"
+                                        title="Agregar imagen al catalogo"
+                                        data-url="{% url 'producto:consultar-producto-modal' producto.id %}"
+                                        data-id="{{ producto.id }}"
+                                        data-toggle="tooltip" data-placement="top" data-method="DELETE"><i class="far fa-images"></i> 
+                                         </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <br>
+                    {% else %}
+                    <div class="alert alert-danger">
+                        <span>
+                            <b>No hay productos en el catalogo</b>
+                        </span>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+    <!--MODAL -->
+    {% block modal_movimiento_stock %}
+    <div id="modal_mover_stock" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-pollo">
+                    <h5 class="modal-title text-light"><i class="fas fa-random"></i></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
+
+       <!--MODAL PRODUCTO IMAGEN -->
+    {% block modal_imagen_producto %}
+    <div id="modal_imagen_producto" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-pollo">
+                    <h5 class="modal-title text-light"><i class="fas fa-random"></i> Cargar imagen al producto</h5>
+                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
+</section>
+
+{% endblock %}

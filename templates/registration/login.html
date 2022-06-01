@@ -1,0 +1,41 @@
+{% extends 'layout/layout-login.html' %}
+{% block title %} ERP - login {% endblock %}
+{% block title_dash %} LOGIN {% endblock %}
+{% block login %}
+<section>
+<div class="body body-login text-center">
+   <div class="container">
+   <form class="form-signin" id="frmlogin" name="frmlogin" role="form" method="POST" action="{% url 'login' %}">
+      <!-- <img class="mb-4" src="./asset/img/logo-login.png" alt="" width="300" height="150"> -->
+       {% csrf_token %}
+      <h1 class="h3 mb-3 font-weight-normal text-center"><b>Login</b></h1>
+      <label for="inputUsuario" class="sr-only">{{ form.username.label_tag }}</label>
+      <input type="text" id="username" name="username" class="form-control" placeholder="Usuario" required autofocus>
+        <br>
+      <label for="inputPassword" class="sr-only">Contraseña</label>
+      <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+      <div class="checkbox mb-3">
+        <label>
+          <input type="checkbox" value="remember-me"> Recordarme
+        </label>
+      </div>
+      <input class="btn btn-lg btn-primary btn-block" id="btnenviar" class="btnenviar" type="submit" value="Iniciar sesion">
+      <input type="hidden" name="next" value="{{ next }}" />
+      <br />
+      <p><a href="{% url 'password_reset' %}">Se te ha olvidado la contraseña?</a></p>
+       <br />
+         {% if form.errors %}
+            <div class="alert alert-danger">
+              <p>Usuario o contraseña invalidos.</p>
+        {% endif %}
+        {% if next %}
+            {% if user.is_authenticated %}
+              <p>No tienes acceso a esta pagina</p>
+            {% endif %}
+           </div>
+      {% endif %}
+
+    </form>
+    </div>
+  </div>
+{% endblock %}

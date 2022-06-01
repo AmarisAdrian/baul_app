@@ -1,0 +1,77 @@
+{% extends 'layout/index.html' %}
+{% block title %} ERP - Inventario {% endblock %}
+{% block title_dash %} Inventario {% endblock %}
+{% block content %}
+<section>
+    <div class="container-xl bg-light shadow rounded">
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <br>
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="dropdown">
+                            <i class="fas fa-truck-loading"></i> Cruzar Inventario
+                            <button class="btn btn-md btn-warning dropdown-toggle text-light" type="button"
+                                id="MenuHerramienta" data-bs-toggle="dropdown"  aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-download"> Exportar</i>
+                            </button>
+                            <a class="btn btn-md btn-primary text-light" a href="{% url 'stock:inventariar' %}"><i class="fas fa-pallet"></i> Inventariar</i></a>
+                            <div class="dropdown-menu" class="Menu_herramienta_inventario" aria-labelledby="MenuHerramienta"
+                                id="Menu_herramienta_inventario">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 order-last ">
+                        <form method="POST" name="frmcruzar" id="frmcruzar" data-url="{% url 'stock:cruzar-inventario'%}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger offset-md-3" id="btn-cruzar" name="btn-cruzar">Cargar a inventario</button>
+                        </form>
+                    </div>
+                </div>
+
+                <hr>
+                
+                 <div class="table-responsive fs-6">
+                    {% if inventario %}
+                    <!--Aqui va la tabla-->
+                    <table id="tabla_inventario" class="table-bordered table table-hover table-sm">
+                        <thead class="text-dark">
+                            <tr>
+                                <th >Fecha</th>
+                                <th >Referencia</th>
+                                <th >Descripcion</th>
+                                <th >Venta</th>
+                                <th >Descuento</th>
+                                <th>Cantidad</th>
+                                <th>Motivo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% load humanize %}
+                            {% for inventario in inventario %}
+                            <tr>
+                                <td>{{ inventario.fecha_movimiento }}</td>
+                                <td>{{ inventario.id_producto.referencia }}</td>
+                                <td>{{ inventario.id_producto.descripcion }} {{ inventario.id_producto.detalle_producto }}</td>
+                                <td>{{ inventario.valor_venta|intcomma }}</td>
+                                <td>{{ inventario.valor_descuento|intcomma }}</td>
+                                <td  style="width:10px">{{ inventario.cantidad }}</td>
+                                <td>{{ inventario.motivo_traslado }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <br>
+                    {% else %}
+                    <div class="alert alert-danger">
+                        <span>
+                            <b>No hay inventarios en el catalogo</b>
+                        </span>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

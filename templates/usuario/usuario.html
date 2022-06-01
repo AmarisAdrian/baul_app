@@ -1,0 +1,70 @@
+{% extends 'layout/index.html' %}
+{% block title %} ERP - Usuario {% endblock %}
+{% block title_dash %} Usuario {% endblock %}
+{% block content %}
+<section>
+    <div class="container-xl bg-light shadow rounded">
+        <div class="row">
+            {% load sweetify %} {% sweetify %}
+            <div class="col-xl-12 col-lg-12">
+                <br>
+                      <div class="dropdown">
+                        <i class="fa fa-list"></i> Usuario
+                        <a class="btn btn-sm bg-pollo text-light" a href="{% url 'cliente:crear-cliente' %}">
+                            <i class="fa fa-plus" aria-hidden="true" title="Registrar factura" 
+                            data-toggle="tooltip" data-placement="top" ></i> Registrar </a>  
+                            <button class="btn btn-sm btn-pollo-secondary dropdown-toggle text-light" type="button"
+                            id="MenuHerramienta" data-bs-toggle="dropdown"  aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-download"> Exportar</i>
+                        </button>
+                          <div class="dropdown-menu" class="Menu_herramienta_cliente" aria-labelledby="MenuHerramienta"
+                            id="Menu_herramienta_cliente">
+                        </div>
+                  </div>
+                <hr>
+                <div class="table-responsive fs-6">
+                    {% if user %}
+                    <!--Aqui va la tabla-->
+                    <table id="tabla_usuario" class="table-bordered table table-hover table-sm">
+                        <thead class="text-dark">
+                            <tr>
+                                <th>Username</th>
+                                <th>Email</th>
+                                <th>Nombre</th>
+                                <th>Apellidos</th>
+                                <th>Staff</th>  
+                                <th>Activo</th> 
+                                <th>Superusuario</th> 
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% load humanize %}
+                            {% for usuario in user %}
+                            <tr>
+                                <td>{{ usuario.username }}</td>
+                                <td>{{ usuario.email}} </td>
+                                <td>{{ usuario.first_name}}</td>
+                                <td>{{ usuario.last_name}}</td>
+                                <td>{{ usuario.is_staff }}</td>
+                                <td>{{ usuario.is_active }}</td>
+                                <td>{{ usuario.is_superuser }}</td>
+                             </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <br>
+                    {% else %}
+                    <div class="alert alert-danger">
+                        <span>
+                            <b>No hay registro de usuarios</b>
+                        </span>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+</section>
+{% endblock %}

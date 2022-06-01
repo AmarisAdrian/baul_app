@@ -1,0 +1,80 @@
+{% extends 'layout/index.html' %}
+{% block title %} ERP - Cliente {% endblock %}
+{% block title_dash %} Cliente {% endblock %}
+{% block content %}
+<section>
+    <div class="container-xl bg-light shadow rounded">
+        <div class="row">
+            {% load sweetify %} {% sweetify %}
+            <div class="col-xl-12 col-lg-12">
+                <br>
+                      <div class="dropdown">
+                        <i class="fa fa-list"></i> Cliente
+                        <a class="btn btn-sm bg-pollo text-light" a href="{% url 'cliente:crear-cliente' %}">
+                            <i class="fa fa-plus" aria-hidden="true" title="Registrar factura" 
+                            data-toggle="tooltip" data-placement="top" ></i> Registrar </a>  
+                            <button class="btn btn-sm btn-pollo-secondary dropdown-toggle text-light" type="button"
+                            id="MenuHerramienta" data-bs-toggle="dropdown"  aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-download"> Exportar</i>
+                        </button>
+                          <div class="dropdown-menu" class="Menu_herramienta_cliente" aria-labelledby="MenuHerramienta"
+                            id="Menu_herramienta_cliente">
+                        </div>
+                  </div>
+                <hr>
+                <div class="table-responsive fs-6">
+                    {% if cliente %}
+                    <!--Aqui va la tabla-->
+                    <table id="tabla_cliente" class="table-bordered table table-hover table-sm">
+                        <thead class="text-dark">
+                            <tr>
+                                <th>Documento</th>
+                                <th>Ciente</th>
+                                <th>Dirección</th>
+                                <th>Telefono</th>
+                                <th>email</th>
+                                <th>Fecha</th>  
+                                <th></th>    
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% load humanize %}
+                            {% for cliente in cliente %}
+                            <tr>
+                                <td>{{ cliente.documento }}</td>
+                                <td>{{ cliente}} </td>
+                                <td>{{ cliente.direccion}}</td>
+                                <td>{{ cliente.telefono}}</td>
+                                <td>{{ cliente.email}}</td>
+                                <td>{{ cliente.fecha_ingreso }}</td>
+                                <td>
+                                    <a href="{% url 'cliente:editar-cliente' cliente.id %}"
+                                        class="btn btn-primary btn-circle btn-sm text-light" title="Editar"
+                                        data-toggle="tooltip" data-placement="top" data-method="DELETE"><i
+                                        class="fa fa-pencil"></i>  </a>
+                                    <a  href="{% url 'cliente:eliminar-cliente' cliente.id %}"
+                                        class="btn_eliminar_cliente btn btn-danger btn-circle btn-sm"
+                                        title="Eliminar cliente"
+                                        data-id="{% url 'cliente:eliminar-cliente' cliente.id %}"
+                                        data-toggle="tooltip" data-placement="top" data-method="DELETE"><i
+                                        class="fa fa-trash"></i>  </a>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <br>
+                    {% else %}
+                    <div class="alert alert-danger">
+                        <span>
+                            <b>No hay registro de clientes</b>
+                        </span>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+</section>
+{% endblock %}

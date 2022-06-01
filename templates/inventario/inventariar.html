@@ -1,0 +1,61 @@
+{% extends 'layout/index.html' %}
+{% block title %} ERP - Inventario {% endblock %}
+{% block title_dash %} Inventario {% endblock %}
+{% block content %}
+<section>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-5">
+                <div class="card shadow rounded">
+                    <div class="card-body">
+                      <div class="input-group">
+                        <div  class="input-group-text">
+                            <input class="CheckConfirmarProducto form-check-input mt-0" type="checkbox" id="CheckConfirmarProducto" name="CheckConfirmarProducto" data-bs-toggle="tooltip" data-bs-placement="top" title="Confirmar producto">
+                         </div>
+                          {% csrf_token %}
+                        <input type="number" data-url="{% url 'producto:consultar-producto-inventario' %}" class="form-control" id="TxtBuscarProducto" name="TxtBuscarProducto" placeholder="Referencia o codigo de barra del producto" required>
+                        <span class="spn-referencia input-group-text text-light bg-warning" id="spn-referencia" name="spn-referencia" data-bs-toggle="tooltip" data-bs-placement="top" title="Producto por confirmar"><i class="fas fa-question-circle"></i></span>
+                      </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="col text-center  justify-content-center align-items-center">
+                    <button type="button" class="AgregarInventario btn btn-lg btn-success" id="AgregarInventario" name="AgregarInventario" disabled> Agregar <i class="fas fa-arrow-circle-right"></i></button>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="card shadow rounded">
+                    <div class="card-body">
+                        <ul class="list-group lista-producto-inventario" id="lista-producto-inventario" name="lista-producto-inventario">
+                            <li class="item-vacio list-group-item" name="item-vacio" id="item-vacio">    
+                                <input class="form-check-input me-1 eliminar-producto-inventario" name="eliminar-producto-inventario" id="eliminar-producto-inventario" type="checkbox" value="" aria-label="..."> 
+                                Sin producto
+                                <span class="badge bg-primary rounded-pill">0</span>
+                            </li>
+                          </ul>
+                    </div>
+                </div>
+            </div>    
+        </div>
+        <br>
+        <div class="row">
+            <div class="col">
+            <div class="card shadow rounded card-resultado d-none ">
+                <div class="col text-center  justify-content-center align-items-center">
+                    <div class="card-body">
+                        <button type="button"  data-url="{% url 'stock:relacionar-inventario' %}" class="VerificarInventario btn btn-md btn-primary" id="VerificarInventario" name="AgregarInventario"> Inventariar <i class="fas fa-circle-notch"></i></button>
+                        <div class="container resultado">
+                        <br>
+                            <ul class="list-group list-group-flush list-group-numbered resultado-inventario">
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+     </div>
+</section>
+{% endblock %}

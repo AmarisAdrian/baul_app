@@ -1,0 +1,90 @@
+{% extends 'layout/index.html' %}
+{% block title %} ERP - Cotizacion {% endblock %}
+{% block title_dash %} Cotizacion {% endblock %}
+{% block content %}
+<section>
+    <div class="container-xl bg-light shadow rounded">
+        <div class="row">
+            {% load sweetify %} {% sweetify %}
+            <div class="col-xl-12 col-lg-12">
+                <br>
+                      <div class="dropdown">
+                        <i class="fa fa-list"></i> Cotizaciones
+                        <a class="btn btn-sm bg-pollo text-light" a href="{% url 'facturacion:crear-facturacion' %}">
+                            <i class="fa fa-plus" aria-hidden="true" title="Registrar factura" 
+                            data-toggle="tooltip" data-placement="top" ></i> Registrar </a>  
+                            <button class="btn btn-sm btn-danger dropdown-toggle text-light" type="button"
+                            id="MenuHerramienta" data-bs-toggle="dropdown"  aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-download"> Exportar</i>
+                        </button>
+                          <div class="dropdown-menu" class="Menu_herramienta_facturacion" aria-labelledby="MenuHerramienta"
+                            id="Menu_herramienta_facturacion">
+                        </div>
+                  </div>
+                <hr>
+                <div class="table-responsive fs-6">
+                    {% if cotizacion %}
+                    <!--Aqui va la tabla-->
+                    <table id="tabla_facturacion" class="table-bordered table table-hover table-sm">
+                        <thead class="text-dark">
+                            <tr>
+                                <th>Ciente</th>
+                                <th>Subtotal</th>
+                                <th>Total</th>
+                                <th>Envio</th>
+                                <th>Fecha</th>  
+                                <th>Estado</th> 
+                                <th></th>    
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% load humanize %}
+                            {% for cotizacion in cotizacion %}
+                            <tr>
+                                <td>{{ cotizacion.cliente}}</td>
+                                <td>{{ cotizacion.subtotal|intcomma }}</td>
+                                <td>{{ cotizacion.total|intcomma }}</td>
+                                <td>{{ cotizacion.envio}}</td>
+                                <td>{{ cotizacion.fecha_ingreso }}</td>
+                                <td>{{ cotizacion.get_estado_display }}</td>
+                                <td> 
+                                <a data-bs-toggle="modal"  type="button" data-bs-target="#modal_cotizacion"  data-url="{% url 'cotizacion:consultar-cotizacion' cotizacion.id %}" data-id="{{ cotizacion.id }} " id="ver_cotizacion" class="ver_cotizacion btn btn-primary btn-circle btn-sm text-light" title="Ver cotizacion"
+                                    data-toggle="tooltip" data-placement="top" data-method="post"><i class="fas fa-search"></i></a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <br>
+                    {% else %}
+                    <div class="alert alert-danger">
+                        <span>
+                            <b>No hay registro de cotizaciones</b>
+                        </span>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+    <!--MODAL -->
+    {% block modal_cotizacion %}
+    <div id="modal_cotizacion" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-pollo">
+                    <h5 class="modal-title text-light"><i class="fas fa-eye"></i> Ver Cotizacion</h5>
+                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
+</section>
+
+{% endblock %}

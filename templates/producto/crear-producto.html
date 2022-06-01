@@ -1,0 +1,153 @@
+{% extends 'layout/index.html' %}
+{% block title %} ERP - Crear Productos {% endblock %}
+{% block content %}
+<section>
+    <div class="container  bg-light shadow rounded">
+        <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+               <br> <br>
+            <h5><i class="fa fa-address-card"></i> Datos de producto</h5>
+            <hr class="bg-pollo">
+            <br>
+            <form action="" method="POST" class="horizontal-form">
+                {% csrf_token %}
+                <div class="row mb-3">
+                    <div class="col-md col-xs col-lg">
+                        <div class="input-group mb-3">
+                          <label for="{{ form.codigo.label }}" class="col-md-4 col-form-label"> <i class="fas fa-barcode"></i> {{ form.codigo.label }}</label>
+                            <div class="col-md-8">
+                                {{ form.codigo }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md col-xs col-lg">
+                        <div class="input-group mb-3">
+                            <label for="{{ form.descripcion.label }}" class="col-md-4 col-form-label"> <i class="fas fa-pen-square"></i> {{ form.descripcion.label }}</label>
+                            <div class="col-md-8">
+                                {{ form.descripcion }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md col-xs col-lg">
+                        <div class="input-group mb-3">                   
+                            <label for="{{ form.detalle_producto.label }}" class="col-md-2 col-form-label"><i class="far fa-edit"></i> {{ form.detalle_producto.label }}</label>
+                            <div class="col-md-10">
+                                {{ form.detalle_producto }}
+                            </div>
+                        </div>
+                    </div>
+                </div>             
+                <div class="row mb-3">
+                    <div class="col-md col-xs col-lg">
+                        <div class="input-group mb-3">
+                             <label for="{{ form.talla.label }}" class="col-md-4 col-form-label"><i class="fas fa-expand-arrows-alt"></i> {{ form.talla.label }}</label>  
+                            <div class="col-md-8">
+                                {{ form.talla }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md col-xs col-lg">
+                        <div class="input-group mb-3">
+                            <label for="{{ form.referencia.label }}" class="col-md-4 col-form-label"><i class="fas fa-qrcode"></i> {{ form.referencia.label }}</label>
+                            <div class="col-md-8">
+                                {{ form.referencia }}                            
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md col-xs col-lg">
+                        <div class="input-group mb-3">
+                            <label for="{{ form.descuento.label }}" class="col-md-4 col-form-label"><i class="fas fa-dollar-sign"></i> {{ form.valor_venta.label }}</label>
+                            <div class="col-md-8">
+                                {{ form.valor_venta }}                            
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md col-xs col-lg">
+                        <div class="input-group mb-3">
+                            <label for="{{ form.descuento.descuento }}" class="col-md-4 col-form-label"><i class="fas fa-percentage"></i> {{ form.descuento.label }}</label>
+                            <div class="col-md-8">
+                                {{ form.descuento }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md col-xs col-lg">
+                        <div class="input-group mb-3">
+                            <label for="{{ form.valor_descuento.label }}" class="col-md-4 col-form-label"><i class="fas fa-dollar-sign"></i> {{ form.valor_descuento.label }}</label>
+                            <div class="col-md-8">
+                                {{ form.valor_descuento }}                            
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md col-xs col-lg">
+                        <div class="input-group mb-3">
+                            <label for="{{ form.id_motivo.label }}" class="col-md-4 col-form-label"><i class="fas fa-venus-mars"></i> {{ form.id_motivo.label }}</label>
+                            <div class="col-md-8">
+                                {{ form.id_motivo }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md col-xs col-lg">
+                        <div class="input-group mb-3">
+                            <label for="{{ form.descripcion.label }}" class="col-md-4 col-form-label"><i class="fas fa-dollar-sign"></i> {{ form.valor.label }}</label>
+                            <div class="col-md-8">
+                                {{ form.valor }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md col-xs col-lg">
+                        <div class="input-group mb-3">
+                            <label for="{{ form.precio_unitario.label }}" class="col-md-4 col-form-label"><i class="fas fa-sort-numeric-up"></i> {{ form.precio_unitario.label }}</label>
+                            <div class="col-md-8">
+                                {{ form.precio_unitario }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md col-xs col-lg">
+                        <div class="input-group mb-3">
+                            <label for="{{ form.pieza.valor }}" class="col-md-4 col-form-label"><i class="fas fa-sort-numeric-up"></i> {{ form.pieza.label }}</label>
+                            <div class="col-md-8">
+                                {{ form.pieza }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md col-xs col-lg">
+                        <div class="input-group mb-3">                   
+                            <label for="{{ form.cantidad.label }}" class="col-md-4 col-form-label"><i class="fas fa-sort-amount-up-alt"></i> {{ form.cantidad.label }}</label>
+                            <div class="col-md-8">
+                                {{ form.cantidad }}
+                            </div>
+                        </div>
+                    </div>         
+                </div> 
+                {% if form.errors %}
+                    <div class="alert alert-danger">
+                        {{ form.errors }}
+                    </div>
+                {% endif %}
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="category">* Campo Requerido</div>
+                        <div class="card-footer bg-transparent text-right">
+                            <button type="submit" class="btn bg-pollo text-light btn-fill btn-wd"> <i class="fas fa-paper-plane"></i> Guardar</button>
+                            <a type="button" href="{% url 'producto:producto'  %}" class="btn btn-danger text-light btn-fill btn-wd"><i class="fas fa-window-close"></i> Cancelar</a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+     </div>
+</section>
+
+{% endblock %}

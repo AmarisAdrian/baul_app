@@ -1,0 +1,36 @@
+    {% block modal_imagen_producto %}
+    <div class="card">
+        <div class="card-body">
+            <div class="row mb-3">
+                <div class="col-md col-xs col-lg">
+                    <label class="col-md-12 col-form-label"> <i class="fas fa-pen-square"></i>  <b>Producto:</b> {{ dato.producto.descripcion}} </label>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md col-xs col-lg">
+                    <label class="col-md-12 col-form-label"><i class="far fa-edit"></i>  <b>Descripcion:</b> {{ dato.producto.detalle}} </label>
+                </div>
+            </div>
+        <form method="POST" action="{% url 'producto:crear-imagen-producto' %} " name="frmimagenproducto" id="frmimagenproducto" enctype="multipart/form-data" >
+            {% csrf_token %}
+                <input class="form-control d-none" type="text" name="producto" id="producto" value="{{ dato.producto.id}} ">
+            <div class="row mb-3">
+                <div class="col-md col-xs col-lg">
+                   <label class="col-md-12 col-form-label"><i class="far fa-edit"></i>  <b>Descripcion imagen:</b>  </label>
+                    <textarea class="descripcion-imagen form-control" name="descripcion-imagen" id="descripcion-imagen" rows="3" required></textarea>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md col-xs col-lg">
+                    <input class="form-control" type="file" name="file" id="file" accept="image/*" required >
+                </div>
+            </div>
+            <div class="text-center">
+                <div class="col-md-12">
+                    <button type="submit" id="btn_subir_imagen" name="btn_subir_imagen" class="  btn bg-pollo text-light btn-fill btn-wd"><i class="fas fa-paper-plane"></i> Subir imagen</button>
+                </div>
+            </div>
+        </form>
+        </div>
+    </div>
+    {% endblock %}

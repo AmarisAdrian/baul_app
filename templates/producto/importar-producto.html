@@ -1,0 +1,33 @@
+{% extends 'layout/index.html' %}
+{% block title %} ERP - Importar Productos {% endblock %}
+{% block content %}
+<section>
+    <div class="container  bg-light shadow rounded">
+        <div class="row">
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <br> <br>
+                    <h5><i class="fa fa-upload"></i> Importar producto</h5>
+                    <hr class="bg-pollo">
+                <div class="container">
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <br> <br>
+                        <div class="custom-file">
+                            <input type="file" name="importar_producto"  id="importar_producto"   accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" class="form-control custom-file-input">  
+                        </div>
+                        <br><br>
+                        <div class="text-center">
+                            <div class="col-md-12">
+                                <button type="submit" id="btn_subir_catalogo" name="btn_subir_catalogo"
+                                    class=" btn bg-pollo text-light btn-fill btn-wd"><i class="fas fa-paper-plane"></i> Subir archivo</button>
+                            </div>
+                        </div>
+                         <br> <br>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

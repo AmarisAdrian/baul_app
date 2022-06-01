@@ -1,0 +1,90 @@
+{% extends 'layout/index.html' %}
+{% block title %} ERP - Crear Cliente {% endblock %}
+{% block content %}
+<section>
+    <div class="container  bg-light shadow rounded">
+        <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+               <br> <br>
+            <h5><i class="fa fa-address-card"></i> Datos de cliente</h5>
+            <hr class="bg-pollo">
+            <br>
+            <form action="" method="POST" class="horizontal-form">
+                {% csrf_token %}
+                <div class="row mb-3">
+                    <div class="col-md col-xs col-lg">
+                        <div class="input-group mb-3">
+                          <label for="{{ form.documento.label }}" class="col-md-2 col-form-label"> <i class="fas fa-barcode"></i> {{ form.documento.label_tag }}</label>
+                            <div class="col-md-10">
+                                {{ form.documento }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md col-xs col-lg">
+                        <div class="input-group mb-3">
+                            <label for="{{ form.nombre.label }}" class="col-md-4 col-form-label"> <i class="fas fa-id-badge"></i> {{ form.nombre.label_tag }}</label>
+                            <div class="col-md-8">
+                                {{ form.nombre }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md col-xs col-lg">
+                        <div class="input-group mb-3">                   
+                            <label for="{{ form.apellido.label }}" class="col-md-2 col-form-label"><i class="far fa-address-card"></i> {{ form.apellido.label }}</label>
+                            <div class="col-md-10">
+                                {{ form.apellido }}
+                            </div>
+                        </div>
+                    </div>
+                </div>             
+                <div class="row mb-3">
+                    <div class="col-md col-xs col-lg">
+                        <div class="input-group mb-3">
+                             <label for="{{ form.direccion.label }}" class="col-md-4 col-form-label"><i class="fas fa-map-marker-alt"></i> {{ form.direccion.label }}</label>  
+                            <div class="col-md-8">
+                                {{ form.direccion }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md col-xs col-lg">
+                        <div class="input-group mb-3">
+                            <label for="{{ form.telefono.label }}" class="col-md-2 col-form-label"><i class="fas fa-phone-volume"></i> {{ form.telefono.label }}</label>
+                            <div class="col-md-10">
+                                {{ form.telefono }}                            
+                            </div>
+                        </div>
+                    </div>
+                </div>    
+                 <div class="row mb-3">
+                    <div class="col-md col-xs col-lg">
+                        <div class="input-group mb-3">
+                          <label for="{{ form.email.label }}" class="col-md-2 col-form-label"> <i class="fas fa-envelope-open-text"></i> {{ form.email.label_tag }}</label>
+                            <div class="col-md-10">
+                                {{ form.email }}
+                            </div>
+                        </div>
+                    </div>
+                </div>       
+                 {% if form.errors %}
+                    <div class="alert alert-danger">
+                        {{ form.errors }}
+                    </div>
+                {% endif %}     
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="category">* Campo Requerido</div>
+                        <div class="card-footer bg-transparent text-right">
+                            <button type="submit" class="btn bg-pollo text-light btn-fill btn-wd"> <i class="fas fa-paper-plane"></i> Guardar</button>
+                            <a type="button" href="{% url 'cliente:cliente'  %}" class="btn btn-danger text-light btn-fill btn-wd"><i class="fas fa-window-close"></i> Cancelar</a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+     </div>
+</section>
+
+{% endblock %}

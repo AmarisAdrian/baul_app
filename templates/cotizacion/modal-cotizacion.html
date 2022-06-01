@@ -1,0 +1,61 @@
+{% block modal_cotizacion %}
+<section>
+  {% load humanize %}
+    <div class="card">
+        <div class="card-body">
+            <div class="row mb-3">
+                <div class="col-md col-xs col-lg">
+                    <label class="col-md-12 col-form-label"> <i class="fas fa-list-ol"></i> <b>Numero de cotizacion:</b> {{ dato.cotizacion.id}} </label>
+                </div>
+                <div class="col-md col-xs col-lg">
+                    <label class="col-md-12 col-form-label"><i class="fas fa-user-tie"></i> <b>Cliente:</b> {{ dato.cotizacion.cliente}}</label>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md col-xs col-lg">
+                    <label class="col-md-12 col-form-label"><i class="fas fa-tag"></i> <b>Total:</b> ${{ dato.cotizacion.total|intcomma}} </label>
+                </div>
+                <div class="col-md col-xs col-lg">
+                     <label class="col-md-12 col-form-label"><i class="fas fa-dollar-sign"></i> <b>Subtotal:</b>  ${{ dato.cotizacion.subtotal|intcomma}}</label>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md col-xs col-lg">
+                    <label class="col-md-12 col-form-label"><i class="fas fa-truck-loading"></i> <b>Envio:</b> ${{ dato.cotizacion.envio}}</label>
+                </div>
+                <div class="col-md col-xs col-lg">
+                   <label class="col-md-12 col-form-label"><i class="fas fa-calendar-week"></i> <b>Fecha ingreso:</b> {{ dato.cotizacion.fecha_ingreso}}</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <table id="tabla_facturacion" class="table-bordered table table-hover table-sm">
+        <thead class="text-dark">
+            <tr>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Valor</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% load humanize %}
+            {% for detalle in dato.detalle_cotizacion %}
+            <tr>
+                <td> {{ detalle.id_producto}}</td>
+                <td> {{ detalle.cantidad}}</td>
+                <td> {{ detalle.valor|intcomma}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="col text-center  justify-content-center align-items-center">
+          {% csrf_token %}
+        <a type="submit" href="{% url 'reporte:imprimir-cotizacion' dato.cotizacion.id %}" target="_blank" data-id="{{ dato.cotizacion.id }} "data-url="{% url 'reporte:imprimir-factura' dato.cotizacion.id %}" class="btn btn-success imprimir-cotizacion" id="imprimir-cotizacion" name="imprimir-cotizacion"><i class="fas fa-print"></i> Imprimir</a>
+           &nbsp;&nbsp;
+           {% if dato.cotizacion.estado == 1 %}
+                <a type="button" data-url="{% url 'facturacion:facturar-cotizacion' %}" data-id="{{ dato.cotizacion.id }}"  class="btn btn-warning Facturar_cotizacion" id="Facturar_cotizacion" name="Facturar_cotizacion"><i class="fas fa-file-invoice-dollar"></i> Facturar</a>
+            {% endif %}
+    </div>
+    <section>
+        {% endblock %}

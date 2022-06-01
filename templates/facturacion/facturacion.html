@@ -1,0 +1,90 @@
+{% extends 'layout/index.html' %}
+{% block title %} ERP - Facturacion {% endblock %}
+{% block title_dash %} Facturacion {% endblock %}
+{% block content %}
+<section>
+    <div class="container-xl bg-light shadow rounded">
+        <div class="row">
+            {% load sweetify %} {% sweetify %}
+            <div class="col-xl-12 col-lg-12">
+                <br>
+                      <div class="dropdown">
+                        <i class="fa fa-list"></i> Facturas
+                        <a class="btn btn-sm bg-pollo text-light" a href="{% url 'facturacion:crear-facturacion' %}">
+                            <i class="fa fa-plus" aria-hidden="true" title="Registrar factura" 
+                            data-toggle="tooltip" data-placement="top" ></i> Registrar </a>  
+                            <button class="btn btn-sm btn-danger dropdown-toggle text-light" type="button"
+                            id="MenuHerramienta" data-bs-toggle="dropdown"  aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-download"> Exportar</i>
+                        </button>
+                          <div class="dropdown-menu" class="Menu_herramienta_facturacion" aria-labelledby="MenuHerramienta"
+                            id="Menu_herramienta_facturacion">
+                        </div>
+                  </div>
+                <hr>
+                <div class="table-responsive fs-6">
+                    {% if facturacion %}
+                    <!--Aqui va la tabla-->
+                    <table id="tabla_facturacion" class="table-bordered table table-hover table-sm">
+                        <thead class="text-dark">
+                            <tr>
+                                <th>Numero factura</th>
+                                <th>Ciente</th>
+                                <th>Subtotal</th>
+                                <th>Total</th>
+                                <th>Envio</th>
+                                <th>Fecha</th>  
+                                <th></th>    
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% load humanize %}
+                            {% for facturacion in facturacion %}
+                            <tr>
+                                <td>{{ facturacion.numero_factura }}</td>
+                                <td>{{ facturacion.cliente}}</td>
+                                <td>{{ facturacion.subtotal|intcomma }}</td>
+                                <td>{{ facturacion.total|intcomma }}</td>
+                                <td>{{ facturacion.envio}}</td>
+                                <td>{{ facturacion.fecha_ingreso }}</td>
+                                <td> 
+                                <a data-bs-toggle="modal"  type="button" data-bs-target="#modal_facturacion"  data-url="{% url 'facturacion:consultar-factura' facturacion.id %}" data-id="{{ facturacion.id }} " id="ver_detalle_factura" class="ver_detalle_factura btn btn-primary btn-circle btn-sm text-light" title="Ver factura"
+                                    data-toggle="tooltip" data-placement="top" data-method="post"><i class="fas fa-search"></i></a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <br>
+                    {% else %}
+                    <div class="alert alert-danger">
+                        <span>
+                            <b>No hay registro de facturas</b>
+                        </span>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+    <!--MODAL -->
+    {% block modal_detalle_factura %}
+    <div id="modal_facturacion" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-pollo">
+                    <h5 class="modal-title text-light"><i class="fas fa-eye"></i> Ver factura</h5>
+                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
+</section>
+
+{% endblock %}

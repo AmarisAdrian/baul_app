@@ -1,0 +1,22 @@
+.bg-pollo{
+    background-color: #487db9;
+}
+.bg-pollo-secondary{
+    background-color:#ea899a;
+}
+
+.btn-pollo-secondary{
+    background-color:#ea899a;
+}
+.bg-main{
+   background-color: #e1e9f4; 
+}
+.main {
+    padding-top: 100px;
+    overflow: hidden; 
+    bottom: 0px;
+    margin-bottom: 100px;
+    margin-top: 0;
+    padding-bottom: 100px;
+}
+

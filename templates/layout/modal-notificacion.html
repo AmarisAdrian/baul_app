@@ -1,0 +1,18 @@
+{% block modal_detalle_factura %}
+<section>
+  {% load humanize %}
+    <div class="card">
+        <div class="card-body">
+            <div class="row mb-3">
+              <span>
+               <b>Modulo: </b>  {{ dato.notificacion.modulo}} 
+               <br>
+               <b>Descripcion: </b> {{ dato.notificacion.descripcion}} 
+               <br>
+               <b>Fecha: </b> {{ dato.notificacion.fecha}} 
+              </span>
+            </div>
+        </div>
+    </div>
+</section>
+ {% endblock%}

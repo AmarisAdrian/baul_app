@@ -1,0 +1,197 @@
+{% extends 'layout/index.html' %}
+{% block title %} ERP - Crear Factura {% endblock %}
+{% block content %}
+<section>
+    <!---Seccion producto--->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-success text-light">
+                    <i class="fas fa-file-invoice-dollar"></i> Datos Factura
+                </div>
+                <div class="card-body">
+                    <br>
+                    <form action="" id="frm_consultar_producto" name="frm_consultar_producto" method="POST" class="horizontal-form" data-url="{% url 'producto:consultar-producto' %}">
+                        {% csrf_token %}
+                        <div class="row mb-3">
+                            <div class="col-md col-xs col-lg">
+                                <div class="input-group mb-3">
+                                    <input type="number"  class="form-control" placeholder="Referencia producto"
+                                        aria-label="Username" id="referencia_producto" name="referencia_producto" aria-describedby="basic-addon1">
+                                    {{ form.codigo }}
+                                    <button type="submit" class="btn text-light bg-success btn-fill btn-wd"><i class="text-light fas fa-search"></i> Consultar</button>
+                                </div>
+                            </div>
+                        </form>
+                            <div class="col-md col-xs col-lg">
+                                <div class="input-group mb-3 col-md-12">
+                                    {{ form2.id_producto }}
+                                    <span class="input-group-text" id="basic-addon2"> <i class="fas fa-pen-square"></i>{{ form2.id_producto.label }}</span>            
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md col-xs col-lg">
+                                <div class="input-group mb-3 col-md-8">
+                                        {{ form2.valor }}
+                                         <span class="input-group-text" id="basic-addon2"> <i class="fas fa-dollar-sign"></i> {{ form2.valor.label }}</span>  
+                                </div>
+                            </div>
+                            <div class="col-md col-xs col-lg">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-text">
+                                        <input class="form-check-input mt-0" type="checkbox" value=""  name="CheckoutDescuento" id="CheckoutDescuento" placeholder="Descuento" disabled="true">
+                                    </div>
+                                    <input type="text" class="form-control" name="TxtDescuento" id="TxtDescuento" disabled="true" placeholder="Descuento">
+                                </div>
+                            </div>
+                            <div class="col-md col-xs col-lg">
+                                <div class="input-group mb-3 col-md-8">
+                                        {{ form2.cantidad }}
+                                        <span class="input-group-text" id="basic-addon2"> <i class="fas fa-plus"></i> {{ form2.cantidad.label }}</span>  
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div id="msj-producto" name="msj-producto" class="alert alert-danger d-none" role="alert">
+                               </div>
+                           </div>
+                        </div>
+                </div>
+            </div>
+            <br>
+            <div class="card">
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col">
+                            <div class="input-group mb-3  " >
+                                <input type="text" class="form-control" name="TxtEnvio" id="TxtEnvio" disabled="true" placeholder="Envio">
+                                <span class="input-group-text" id="basic-addon2">  <i class="fas fa-truck-loading"></i> Envio</span> 
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="input-group mb-3 offset-md-2">
+                                {{ form.subtotal }}
+                                <span class="input-group-text" id="basic-addon2"> <i class="fas fa-hand-holding-usd"></i>{{ form.subtotal.label }}</span> 
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group mb-3 offset-md-3">
+                                {{ form.total }}
+                                <span class="input-group-text" id="basic-addon2"> <i class="fas fa-hand-holding-usd"></i>{{ form.total.label }}</span> 
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="input-group mb-3 offset-md-3">
+                                <button type="button" class="btn btn-success" id="AgregarCarrito" name="AgregarCarrito"><i class="fas fa-cart-plus"></i>Agregar</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div id="msj-factura" name="msj-factura" class="alert alert-danger d-none" role="alert">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!---fin producto--->
+        <!---Seccion cliente--->
+        <div class="container col-md-4">
+            <div class="card">
+                <div class="card-header bg-danger text-light">
+                    <i class="fas fa-id-card-alt"></i> Datos clientes
+                </div>
+                <div class="card-body">
+                    <br>
+                    <form action="" method="POST" class="horizontal-form"  data-url="{% url 'cliente:lista-cliente' %}" id="frm_consultar_cliente" name="frm_consultar_cliente">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md col-xs col-lg">
+                                <div class="input-group mb-3">
+                                    <input type="number" class="form-control" placeholder="Documento cliente"
+                                        aria-label="Documento" aria-describedby="basic-addon1" id="documento" name="documento" required>
+                                    <button type="submit" id="consultar_cliente" name="consultar_cliente" class="btn text-light bg-danger btn-fill btn-wd"><i
+                                            class="text-light fas fa-search"></i>Consultar</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md col-xs col-lg">
+                                <div class="input-group mb-3">
+                                    <label for="{{ form3.nombre.label }}" class="col-md-12 col-form-label"> <i
+                                            class="fas fa-id-badge"></i> {{ form3.nombre.label }}</label>
+                                    <div class="col-md-12">  
+                                        {{ form3.nombre }} 
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md col-xs col-lg">
+                                <div class="input-group mb-3">
+                                    <label for="{{ form.apellido.label }}" class="col-md-12 col-form-label"><i
+                                            class="far fa-address-card"></i> {{ form3.apellido.label }}</label>
+                                    <div class="col-md-12">
+                                        {{ form3.apellido }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md col-xs col-lg">
+                              <div class="input-group mb-3">
+                                <label for="{{ form.email.label }}" class="col-md-12 col-form-label"> <i class="fas fa-envelope-open-text"></i> {{ form3.email.label_tag }}</label>
+                                    <div class="col-md-12">
+                                        {{ form3.email }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>  
+                    </form>
+                     <div class="col-md-12">
+                             <div id="msj-cliente" name="msj-cliente" class="alert alert-danger d-none" role="alert">
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!---fin cliente-->
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="card">
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table id="tabla-carrito" class="table table-responsive table-bordered">
+                        <thead>
+                            <tr class="bg-pollo text-light">
+                                <th>Producto</th>
+                                <th>Cantidad</th>
+                                <th>Valor</th>
+                                <th td style="width:200px">Accion</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                    </div>
+                    <div class="row ">
+                        <div class="col col-md-6 offset-md-5">
+                            <div class="input-group mb-3">
+                                {% csrf_token %} 
+                                <button type="button" data-url="{% url 'cotizacion:crear-cotizacion' %}" class="btn btn-success d-none" id="Cotizar" name="Cotizar"><i class="fas fa-file-invoice-dollar"></i> Cotizar</button>
+                                &nbsp;&nbsp;
+                                <button type="button" data-url="{% url 'facturacion:generar-facturacion' %}" class="btn btn-warning d-none" id="Facturar" name="Facturar"><i class="fas fa-file-invoice-dollar"></i> Facturar</button>
+                                &nbsp;&nbsp;
+                                <button type="button" class="btn btn-danger d-none" id="Cancelar" name="Cancelar"><i class="fas fa-stop-circle"></i> Cancelar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+     </div>
+</section>
+
+{% endblock %}

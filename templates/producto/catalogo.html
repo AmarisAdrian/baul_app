@@ -1,0 +1,49 @@
+{% extends 'layout/index.html' %} 
+{% block title %} ERP - Catalogo {% endblock%} 
+{% block content %}
+<section>
+  <div class="container bg-light shadow rounded">
+      <!--BUSCAR EN EL CATALOGO-->
+    <div class="row">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+           <form action="" id="frm_consultar_stock" data-url="{% url 'stock:stock' %}"name="frm_consultar_stock" method="POST" class="form-floating horizontal-form">
+                <br><br>
+                {% csrf_token %}
+                <div class="row mb-3">
+                    <div class="col-md col-xs col-lg">
+                        <div class="input-group mb-3 form-floating">
+                            <div class="col-md-6 col-sm-12 input-group ">
+                                <input id="referencia_producto_catalogo" placeholder="Referencia de producto o codigo de barra" name="referencia_producto_catalogo" class="form-control border border-2 border-success" type="number" required>
+                                    <button type="submit" class="btn btn-lg bg-pollo text-light btn-fill btn-wd" ><i class="fas fa-search"></i> Consultar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+      </div>
+    </div>
+    </div>
+     <!--CATALOGO-->
+     <br><br>
+    <div class="container bg-light shadow rounded">
+     <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+             <form action="" id="frm_consultar_stock" data-url="{% url 'stock:stock' %}"name="frm_consultar_stock" method="POST" class="form-floating horizontal-form">
+                  <br><br>
+                  {% csrf_token %}
+                  <div class="row mb-3">
+                      <div class="col-md col-xs col-lg">
+                          <div class="input-group mb-3 form-floating">
+                              <div class="col-md-6 col-sm-12 input-group ">
+                                  <input id="referencia_producto_catalogo" placeholder="Referencia de producto o codigo de barra" name="referencia_producto_catalogo" class="form-control border border-2 border-success" type="number" required>
+                                      <button type="submit" class="btn btn-lg bg-pollo text-light btn-fill btn-wd" ><i class="fas fa-search"></i> Consultar</button>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </form>
+        </div>
+      </div>
+  </div>
+</section>
+{% endblock %}
